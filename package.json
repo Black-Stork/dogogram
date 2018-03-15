@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "FrontEnd for DogAPI",
   "main": "index.js",
+  "repository": "https://github.com/black-stork/dogogram",
   "scripts": {
     "test": "karma start",
     "build": "webpack",

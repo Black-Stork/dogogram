@@ -10,12 +10,19 @@ Whole my life.. I wanted to try ant.design using React.js =)
 * UI Framework - ant.design
 
 ## Demo
-`https://dogogram.herokuapp.com`
+`https://bs-dogogram.herokuapp.com`
+
+## How to start?
+* git clone https://github.com/black-stork/dogogram.git
+* cd dogogram
+* npm install
+* npm run start
+* open http://localhost:8080/
 
 ## Contacts
 ```
-Name: Nikita Matusevich
-Website: http://matusevich.it
-Email: nikita@matusevich.it
-Country: United States
+Name:      Nikita Matusevich
+Website:   http://matusevich.it
+Email:     nikita@matusevich.it
+Country:   United States
 ```
