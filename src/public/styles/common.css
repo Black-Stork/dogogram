@@ -1,0 +1,57 @@
+.navbar {
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    padding: 2px;
+    margin-right: 5px;
+}
+
+.ant-layout-sider .logo {
+    height: 50px;
+    width: 50px;
+    margin: 16px auto;
+    background: url(/public/images/favicon.png) 100% 100% no-repeat;
+    background-position: center center;
+    background-size: 73%;
+    padding: 5px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.ant-layout-footer .a {
+    text-decoration: none;
+}
+
+.table-operations {
+    margin: 16px;
+}
+
+.table-operations > button {
+    margin-right: 8px;
+}
+
+.ant-card-cover canvas {
+    margin: 0 auto;
+}
+
+.ant-confirm-body .ant-confirm-content {
+    margin-left: inherit;
+}
+
+.ant-confirm-body .ant-confirm-content canvas {
+    width: 100% !important;
+    height: inherit !important;
+}
+
+.breed-viewer {
+    margin: 50px 10px;
+}
+
+.breed-viewer .ant-card {
+    margin: 0 auto;
+}
+
+.ant-menu {
+    max-height: 300px;
+    overflow: auto;
+}
