@@ -80,3 +80,30 @@ export const subbreedsReducer = (state = {
         return state;
     }
 };
+
+export const subbreedReducer = (state = {
+    isLoading: false,
+    data: [],
+    error: false}
+, action = null) => {
+    switch(action.type) {
+        case types.FETCH_SUBBREED_FAILURE:
+            return Object.assign({}, state,
+                {
+                    isLoading: false, 
+                    data: {}, 
+                    error: true
+                });
+        case types.FETCH_SUBBREED_SUCCESS:
+            return Object.assign({}, state,
+                {
+                    isLoading: false, 
+                    data: action.data, 
+                    error: false
+                });
+        case types.FETCH_SUBBREED_START:
+            return Object.assign({}, state, { isLoading: true, error: false });
+    default:
+        return state;
+    }
+};

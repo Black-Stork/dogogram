@@ -43,15 +43,25 @@
     height: inherit !important;
 }
 
-.breed-viewer {
-    margin: 50px 10px;
+.breed-container {
+    text-align: center;
 }
 
-.breed-viewer .ant-card {
+.breed-container .breed-viewer {
+    display: inline-block;
+    margin: 10px;
+    vertical-align: top;
+}
+
+.breed-container .breed-viewer .ant-card {
     margin: 0 auto;
 }
 
 .ant-menu {
     max-height: 300px;
     overflow: auto;
+}
+
+.ant-confirm-content .breed-viewer {
+    margin: 0;
 }

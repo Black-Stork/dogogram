@@ -244,3 +244,56 @@ export const fetchSubbreeds = (breedName) => {
         fetchSubbreedsError);
 }
 // <\ FETCH SUBBREEDS >
+
+// < FETCH SUBBREED >
+
+function fetchSubbreedStart() {
+    return { type: types.FETCH_SUBBREED_START }
+};
+
+function fetchSubbreedSuccess(breed, subbreed, json) {
+    if(json.status !== "success"){
+        fetchSubbreedError(json);
+        return;
+    }
+    return {
+        type: types.FETCH_SUBBREED_SUCCESS,
+        data: {
+            name: subbreed,
+            parent: breed,
+            image: json.message
+        }
+    }
+};
+
+function fetchSubbreedError(json) {
+    return {
+        type: types.FETCH_SUBBREED_FAILURE,
+        data: json
+    }
+};
+
+export const fetchSubbreed = (breedName, subbreedName) => {
+    return function(dispatch) {
+        dispatch(fetchSubbreedStart());
+        return axios({
+            baseURL: baseApiUrl,
+            url: [
+                'breed',
+                breedName,
+                subbreedName,
+                'images',
+                'random'
+            ].join('/'),
+            method: 'GET',
+            responseType: 'json'
+        })
+        .then(function(response) {
+            dispatch(fetchSubbreedSuccess(breedName, subbreedName, response.data));
+        })
+        .catch(function(response) {
+            dispatch(fetchSubbreedError(response.data));
+        });
+    }
+}
+// <\ FETCH SUBBREED >

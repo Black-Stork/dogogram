@@ -6,7 +6,7 @@ import { Layout, Menu, Breadcrumb, Icon, Input, Spin } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 
 import BreedViewer from 'BreedViewer';
-import { fetchBreeds, fetchBreed, fetchSubbreeds } from 'actions';
+import { fetchBreeds, fetchBreed, fetchSubbreeds, fetchSubbreed } from 'actions';
 import StringsApi from 'StringsApi';
 
 class Main extends React.Component {
@@ -15,7 +15,8 @@ class Main extends React.Component {
         this.state = {
             menuCollapsed: false,
             menuCurrent: '',
-            searchBreedName: ''
+            searchBreedName: '',
+            subbreedCurrent: ''
         }
     }
 
@@ -39,15 +40,33 @@ class Main extends React.Component {
         });
     }
 
+    handleNextImage = (evt) => {
+        const { menuCurrent } = this.state;
+        evt.preventDefault();
+        if(!menuCurrent){
+            return;
+        }
+        const { dispatch } = this.props;
+        dispatch(fetchBreed(menuCurrent));
+        dispatch(fetchSubbreeds(menuCurrent));
+    }    
+
     handleSearch = (evt) => {
         this.setState({
             searchBreedName: evt.target.value
         })
     }
 
+    handleShowSubbreed = (subbreedName) => {
+        const { dispatch, onShowSubbreed } = this.props;
+        const { menuCurrent } = this.state;
+        dispatch(fetchSubbreed(menuCurrent, subbreedName));
+        this.setState({subbreedCurrent: subbreedName});
+    }
+
     render() {
-        const { breeds } = this.props;
-        const { menuCurrent, menuCollapsed, searchBreedName } = this.state;
+        const { breeds, breed, subbreed, subbreeds } = this.props;
+        const { menuCurrent, menuCollapsed, searchBreedName, subbreedCurrent } = this.state;
 
         const renderMenuItems = () => {
             if(breeds.isLoading || breeds.error){
@@ -64,9 +83,27 @@ class Main extends React.Component {
             });
         }
 
+        const renderSubbreed = () => {
+            if(!menuCurrent || !subbreed || subbreed.isLoading || subbreed.error || subbreed.data.parent !== menuCurrent){
+                return <h2></h2>;
+            } else {
+                return <BreedViewer 
+                            breed={subbreed} 
+                            breedName={subbreed.name} 
+                            onNextImage={(evt) => {this.handleShowSubbreed(subbreedCurrent)}} 
+                        />
+            }
+        }
+
         const renderView = () => {
             if(menuCurrent){
-                return <BreedViewer breedName={menuCurrent} />
+                return <BreedViewer 
+                            breed={breed} 
+                            subbreeds={subbreeds} 
+                            breedName={menuCurrent} 
+                            onNextImage={this.handleNextImage} 
+                            onShowSubbreed={this.handleShowSubbreed} 
+                        />
             } else {
                 return <h2 style={{margin: '20px auto', textAlign: 'center'}}>Please, select breed..</h2>;
             }
@@ -100,7 +137,10 @@ class Main extends React.Component {
                             {StringsApi.titleFormat(menuCurrent)}
                         </Header>
                         <Content style={{ margin: '0 16px' }}>
-                            {renderView()}
+                            <div className="breed-container">
+                                {renderView()}
+                                {renderSubbreed()}
+                            </div>
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>
                             DogoGram © 2018 Created by <a href="https://github.com/Black-Stork/DogoGram" target="_blank">Nikita Matusevich</a>

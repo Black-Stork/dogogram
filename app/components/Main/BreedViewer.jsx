@@ -2,7 +2,7 @@
 import { Link } from 'react-router';
 const { connect } = require('react-redux');
 
-import { Icon, Spin, Card, Avatar } from 'antd';
+import { Icon, Spin, Card, Avatar, Modal } from 'antd';
 const { Meta } = Card;
 
 import { fetchBreed, fetchSubbreeds } from 'actions';
@@ -14,25 +14,21 @@ class BreedViewer extends React.Component {
         super(props);
     }
 
-    handleNextImageClick = (evt) => {
-        const { breedName } = this.props;
-        if(!breedName){
-            return;
-        }
-        const { dispatch } = this.props;
-        dispatch(fetchBreed(breedName));
-        dispatch(fetchSubbreeds(breedName));
-    }    
+    handleShowSubbreed = (evt, subbreedName) => {
+        evt.preventDefault();
+        const { onShowSubbreed } = this.props;
+        onShowSubbreed(subbreedName);
+    }
 
     render() {
-        const { breed, subbreeds, breedName } = this.props;
-
+        const { breed, subbreeds, breedName, onNextImage } = this.props;
+        
         const renderDescription = () => {
-            if(subbreeds.isLoading || subbreeds.error){
+            if(!subbreeds || subbreeds.isLoading || subbreeds.error){
                 return <div></div>;
             }
             return <div>{subbreeds.data.map(subbreed => {
-                return <a key={subbreed} href="javascript:void(0)" title={subbreed}>#{subbreed} </a>;
+                return <a key={subbreed} href="javascript:void(0)" title={subbreed} onClick={(evt) => {this.handleShowSubbreed(evt, subbreed)}}>#{subbreed} </a>;
             })}</div>
         }
 
@@ -41,7 +37,7 @@ class BreedViewer extends React.Component {
                 <Card
                     style={{ width: 300 }}
                     cover={<img alt={StringsApi.titleFormat(breed.data.name)} src={breed.data.image} />}
-                    actions={[<Icon type="reload" onClick={this.handleNextImageClick} /> ]}
+                    actions={[<Icon type="reload" onClick={onNextImage} /> ]}
                 >
                     <Meta
                     avatar={<Avatar src={breed.data.image} />}
@@ -55,7 +51,9 @@ class BreedViewer extends React.Component {
 };
 
 export default connect(
-  (state) => {
-      return state;
-  }
-)(BreedViewer); 
+    (state) => {
+        return {
+            subbreed: state.subbreed
+        };
+    }
+  )(BreedViewer); 
