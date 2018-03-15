@@ -103,7 +103,7 @@ class Main extends React.Component {
                             {renderView()}
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>
-                            DogoGram © 2018 Created by <a href="http://matusevich.it" target="_blank">Nikita Matusevich</a>
+                            DogoGram © 2018 Created by <a href="https://github.com/Black-Stork/DogoGram" target="_blank">Nikita Matusevich</a>
                         </Footer>
                     </Layout>
                 </Layout>);

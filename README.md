@@ -11,3 +11,9 @@ Whole my life.. I wanted to try ant.design using React.js =)
 
 ## Demo
 `https://dogogram.herokuapp.com`
+
+## Contacts
+Name: Nikita Matusevich
+Website: http://matusevich.it
+Email: nikita@matusevich.it
+Country: United States
