@@ -65,3 +65,7 @@
 .ant-confirm-content .breed-viewer {
     margin: 0;
 }
+
+.breed-container .breed-viewer .ant-card-meta-detail { 
+    text-align: left;
+}

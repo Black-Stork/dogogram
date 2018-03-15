@@ -68,6 +68,8 @@ class Main extends React.Component {
         const { breeds, breed, subbreed, subbreeds } = this.props;
         const { menuCurrent, menuCollapsed, searchBreedName, subbreedCurrent } = this.state;
 
+        document.title = 'DogoGram' + (menuCurrent ? ` - ${menuCurrent}` : '');
+
         const renderMenuItems = () => {
             if(breeds.isLoading || breeds.error){
                 return [];
